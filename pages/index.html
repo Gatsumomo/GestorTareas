@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handlebars</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+    rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>    
+    <script>
+        const Handlebars = require("handlebars");
+        
+        $(function() {
+            //grab the template script
+            var theTemplateScript = $("#address-template").html();
+            //compile the template script
+            var theTemplate = Handlebars.compile(theTemplateScript);
+            //define data object
+            var state = {
+                "city": "London",
+                "street": "Baker Street",
+                "number": "221B",
+            }
+            //pass data to the template
+            var theCompiledHtml = theTemplate(state);
+            //add the compiled html to the page
+            $('.content-placeholder').html(theCompiledHtml)
+        })
+    </script>
+    <style>
+        .display-block{
+            display: block;
+        }
+        .left{
+            text-align: left;
+        }
+        .end{
+            text-align: end;
+        }
+        .navbar{
+       
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <!--navbar-->
+        <div class="row">
+            <div class="col">
+                <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                    <div class="container-fluid">
+                      <a class="navbar-brand link-nav" href="#start">Gestor de tareas</a>
+                      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                      </button>
+                      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                          <a class="nav-link active" aria-current="page" href="#">My profile</a>
+                          <a class="nav-link" href="#">Tasks</a>
+                          <a class="nav-link" href="#">Hash</a>
+                          <a class="nav-link" href="#">History</a>
+                        </div>
+                      </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <!--content-->
+        <div class="row row-cols-2">
+            <!--List of typos and add typos predefined, these can be modified-->
+                <!--typo 1-->
+                <div class="row typo">
+                    <!--typo name-->
+                        name
+                    </div>
+                    <!--options-->
+                    <div class="col">
+                       <!--<img src="/icons/three-dots.svg" alt="options" data-bs-toggle="dropdown" class="dropdown-toggle">-->
+                       <div class="btn-group left" role="group">
+                        <button type="button" class="btn btn-light dropdown-toggle text-center align-middle" data-bs-toggle="dropdown" aria-expanded="false">
+                          Options
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="#" onclick='delet()'>Delete</a></li>
+                          <li><a class="dropdown-item" href="#" onclick='edit()'>Edit</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <i onclick='addTypo()'>agregar</i>
+                </div>
+        </div>
+        <div class="row row-cols-10">
+            <!--create tasks-->
+            <div class="row">
+                <div class="col-10">
+                    <div class="input-group mb-3">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
+                            <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">To do</a></li>
+                            <li><a class="dropdown-item" href="#">Development</a></li>
+                            <li><a class="dropdown-item" href="#">Done</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Otro</a></li>
+                            </ul>
+                        <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Create a task here">
+                    </div>                          
+                </div>
+            </div>
+
+            <!--Show list of tasks waiting to be hashed-->
+            <div class="row">
+                <ul id="waiting-list">
+                </ul>
+            </div>
+        </div>
+
+        <!--move task-->
+        <div class="row">
+            <div class="col-3 text-center to-do bg-light">
+                <h5></h5>
+                <ul id="list"></ul>
+            </div>
+            <!--
+            <div class="col-3 text-center to-do bg-light">
+                <h5>to do</h5>
+                <ul id="to-do-list"></ul>
+            </div>
+            <div class="col-3 text-center in-process bg-light">
+                <h5>in process</h5>
+                <ul id="in-process-list"></ul>
+            </div>
+            <div class="col-3 text-center development bg-light">
+                <h5>Development</h5>
+                <ul id="development-list"></ul>
+            </div>
+            <div class="col-3 text-center done bg-light">
+                <h5>Done</h5>
+                <ul id="done-list"></ul>
+            </div>
+            -->
+        </div>   
+
+        <!--footer-->
+        <div class="row">
+
+        </div>
+    </div>
+</body>
+</html>
