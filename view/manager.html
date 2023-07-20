@@ -2,6 +2,7 @@
 <html lang="es-ES">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Manager</title>
     
@@ -9,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Agdasima&display=swap" rel="stylesheet">
-    <link href="/fonts/Agdasima-Regular.ttf">
+    <link href="../fonts/Agdasima-Regular.ttf">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,100&display=swap" rel="stylesheet">
@@ -18,27 +19,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
     
     <!--bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
     rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!-- Option 1: Include in HTML -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
     <!--script-->
     <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
-    <script src="/task_man_test/view/javascript/drag/drag.js" defer></script> 
-    <script src="/task_man_test/view/javascript/add/newTodoLane.js" defer></script>
-    <script src="/task_man_test/view/javascript/add/newDoneLane.js" defer></script>
-    <script src="/task_man_test/view/javascript/add/newDoingLane.js" defer></script>
-    <script src="/task_man_test/view/javascript/add/add.js" defer></script>
-    <script src="/task_man_test/view/javascript/onclick/click.js" defer></script>
-    <script src="/task_man_test/view/javascript/add/newGroup.js" defer></script>
-    <script src="/task_man_test/view/javascript/show.js" defer></script>
+    <script src="../view/javascript/drag/drag.js" defer></script> 
+    <script src="../view/javascript/add/newTodoLane.js" defer></script>
+    <script src="../view/javascript/add/newDoneLane.js" defer></script>
+    <script src="../view/javascript/add/newDoingLane.js" defer></script>
+    <script src="../view/javascript/add/add.js" defer></script>
+    <script src="../view/javascript/onclick/click.js" defer></script>
+    <script src="../view/javascript/add/newGroup.js" defer></script>
+    <script src="../view/javascript/show.js" defer></script>
 
     <!--stylesheet-->
-    <link rel="stylesheet" href="/task_man_test/view/css/stylesheet.css">
+    <link rel="stylesheet" href="../view/css/stylesheet.css">
 </head>
-<div id="header"></div>
+<div id="navbar"></div>
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid manager">
         <!--content-->    
         <div class="row content">
             <div class="col add">
@@ -64,45 +69,56 @@
         </div><hr>
 
         <div class="row content groups" onload="myfunction()">
-            <h5 class="groups-heading">Your groups</h5>               
-            <hr>
-            <!--tasks-->
-            <div class="lanes">
-                <div class="swim-lane"> <!--column-->
-                    <div class="head" id="todo-heading">
-                        <h5><a href="tasks.html" class="link-task">To do </a></h5>
-                        <p id="amount-todo"></p>
+            <div class="col">
+                <h5 class="groups-heading">Your groups</h5>               
+                <hr>
+                <!--tasks-->
+                <div class="lanes">
+                    <div class="swim-lane"> <!--column-->
+                        <div class="head" id="todo-heading">
+                            <h5><a href="tasks.html" class="link-task">To do </a></h5>
+                            <p id="amount-todo"></p>
+                        </div>
+                        <div class="wrapper-lane" id="todo-lane">
+                        </div>
+                        <p class="add-lane" id="add-lane-todo"><img src="../view/icons/plus.svg" alt="add done task"></p>
                     </div>
-                    <div class="wrapper-lane" id="todo-lane">
+                    <div class="swim-lane">
+                        <div class="head" id="doing-heading">
+                            <h5><a href="tasks.html" class="link-task">Doing </a></h5>
+                            <p id="amount-doing"></p>
+                        </div>
+                        <div class="wrapper-lane" id="doing-lane"></div>
+                        <p class="add-lane" id="add-lane-doing"><img src="../view/icons/plus.svg" alt="add done task"></p>
                     </div>
-                    <p class="add-lane" id="add-lane-todo"><img src="/task_man_test/view/icons/plus.svg" alt="add done task"></p>
-                </div>
-                <div class="swim-lane">
-                    <div class="head" id="doing-heading">
-                        <h5><a href="tasks.html" class="link-task">Doing </a></h5>
-                        <p id="amount-doing"></p>
+                    <div class="swim-lane">
+                        <div class="head" id="done-heading">
+                            <h5><a href="tasks.html" class="link-task">Done </a></h5>
+                            <p id="amount-done"></p>
+                        </div>
+                        <div class="wrapper-lane" id="done-lane" ></div>
+                        <p class="add-lane" id="add-lane-done"><img src="../view/icons/plus.svg" alt="add done task"></p>
+                        <!--no clicar la imagen-->
                     </div>
-                    <div class="wrapper-lane" id="doing-lane"></div>
-                    <p class="add-lane" id="add-lane-doing"><img src="/task_man_test/view/icons/plus.svg" alt="add done task"></p>
-                </div>
-                <div class="swim-lane">
-                    <div class="head" id="done-heading">
-                        <h5><a href="tasks.html" class="link-task">Done </a></h5>
-                        <p id="amount-done"></p>
-                    </div>
-                    <div class="wrapper-lane" id="done-lane" ></div>
-                    <p class="add-lane" id="add-lane-done"><img src="/task_man_test/view/icons/plus.svg" alt="add done task"></p>
                 </div>
             </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="response"></div>
+            </div>
+        </div>
     </div>
 </body>
+    <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
     <script>
         $(function(){
-            $("#footer").load("/task_man_test/view/templates/footer.html");
+            $("#navbar").load("../view/templates/navbar.html");
         });
         $(function(){
-            $("#header").load("/task_man_test/view/templates/header.html");
+            $("#footer").load("../view/templates/footer.html");
         });
     </script>
-    <div id="footer"></div>
+<div id="footer"></div>
 </html>

@@ -12,21 +12,19 @@ form_group.addEventListener("submit", (e) => {
 
         //color random
         const color = Math.floor(Math.random()*16777215).toString(16);
-        console.log(color);
 
         var range = document.createRange();
         range.selectNode(document.body);
 
         var newGroup = range.createContextualFragment(`
         <div class="swim-lane">
-            <div class="head-newgroup" id="newgroup-heading" style="background-color: #${color};">
+            <div class="head" id="newgroup-heading" style="background-color: #${color};">
                 <h5><a href="tasks.html" class="link-task">${value}</a></h5>
                 <p id="amount-${value}"></p>
-                <p></p>
             </div>
             <div class="wrapper-lane left-color" id="${value}-lane">
             </div>
-            <p class="add-lane" id="add-lane-${value}"><img src="/icons/plus.svg" alt="add ${value} task"></p>
+            <p class="add-lane" id="add-lane-${value}"><img src="../view/icons/plus.svg" alt="add ${value} task"></p>
         </div>
         `)
 
@@ -58,26 +56,35 @@ form_group.addEventListener("submit", (e) => {
             dividor.appendChild(submitLane);
 
             const parent = element.parentNode;
-            console.log(parent)
-            console.log(element.parentNode)
             parent.appendChild(dividor);
 
             dividor.style.display = "block";
+
+            //contar parrafos -> cantidad de tareas
+            const parrafos = document.querySelectorAll(`#${value}-lane p`)
+            const dropzone = document.getElementById(`amount-${value}`)
+            dropzone.innerText = parrafos.length
         })
 
         submitLane.addEventListener("click", (event) => {
             event.preventDefault();
             const valor = newLane.value;
+            
+            //contar parrafos -> cantidad de tareas
+            const parrafos = document.querySelectorAll(`#${value}-lane p`)
+            const dropzone = document.getElementById(`amount-${value}`)
+            dropzone.innerText = parrafos.length
 
             //vacio
             if(valor.length<2){
                 newLane.value = "";
                 addLane.style.display = "block";
                 dividor.style.display = "none";
+
+                //mensaje de error
             }else{
                 const newManualTask = document.createElement("p");
                 newManualTask.classList.add("task");
-                newManualTask.classList.add("paragraph")
                 newManualTask.setAttribute("draggable", "true")
                 newManualTask.setAttribute("id", "unique") /*arreglar*/ 
                 newManualTask.innerText = valor;
@@ -91,25 +98,23 @@ form_group.addEventListener("submit", (e) => {
                 })
 
                 document.getElementById(`${value}-lane`).appendChild(newManualTask)
-
-                //contar parrafos
-                const parrafos = document.querySelectorAll(`${value}-lane p`)
-                const dropzone = document.getElementById(`amount-${value}`)
-                dropzone.innerText = parrafos.length
-
+                
                 newLane.value = "";
                 addLane.style.display = "block";
                 dividor.style.display = "none";
+                
+                //contar parrafos -> cantidad de tareas
+                const parrafos = document.querySelectorAll(`#${value}-lane p`)
+                const dropzone = document.getElementById(`amount-${value}`)
+                dropzone.innerText = parrafos.length
 
                 var clickables = document.querySelectorAll('.task')
-
-                
                 //mostrar info tasks
                 clickables.forEach((clickable) => {
                     clickable.addEventListener('click', () => {
                         if(document.getElementById('form-wrapper') != null){
                             if(confirm('se cerrará el formulario, ¿desea continuar?')){
-                                document.getElementById('form-wrapper')
+                                document.getElementById('form-wrapper').remove()
                             }else{
                                 return;
                             }
@@ -122,10 +127,9 @@ form_group.addEventListener("submit", (e) => {
 
                         var form = range.createContextualFragment(`
                             <div class="row content show-task" id="show-task">
-                            <hr>
                                 <div class="col-6">
                                     <div class="board-task">
-                                    <img src="/icons/x-circle.svg" class="x-circle-add" id="x-circle-add">
+                                    <img src="../view/icons/x-circle.svg" class="x-circle-add" id="x-circle-add">
                                         <div class="heading">
                                             <h3>${clickable.innerHTML}</h3>
                                             <h6>${clickable.id}</h6>
@@ -149,8 +153,11 @@ form_group.addEventListener("submit", (e) => {
                             </div>
                         `)
 
+                        if(document.getElementById('show-task') != null){
+                            document.getElementById('show-task').remove()
+                        }
 
-                        document.body.appendChild(form)
+                        document.querySelector('.response').appendChild(form)
 
                         //borrar tarea 
                         var deleteTask = document.querySelectorAll('#delete-task')
@@ -160,7 +167,7 @@ form_group.addEventListener("submit", (e) => {
                                 document.getElementById('show-task').remove()
 
                                 //contar parrafos
-                                const parrafos = document.querySelectorAll(`${value}-lane p`)
+                                const parrafos = document.querySelectorAll(`#${value}-lane p`)
                                 const dropzone = document.getElementById(`amount-${value}`)
                                 dropzone.innerText = parrafos.length
                             })
@@ -179,7 +186,7 @@ form_group.addEventListener("submit", (e) => {
                                         <!--agregar atributos para las tareas-->
                                         <div class="col">
                                             <form action="http://127.0.0.1:5500/test/sirve.html" method="post" class="form-wrapper" id="form-wrapper">
-                                                <img src="/icons/x-circle.svg" class="x-circle-form" id="x-circle-form">            
+                                                <img src="../view/icons/x-circle.svg" class="x-circle-form" id="x-circle-form">            
                                                 <label for="task-name" class="form-label">Nombre:</label><input type="text" class="form-control" id="task-name" name="task-name">
                                                 <label for="task-description" class="form-label">Descripción:</label><input type="text" class="form-control" id="task-description" name="task-description">
                                                 <label for="task-hash" class="form-label">Etiqueta:</label><input type="text" class="form-control" id="task-hash" name="task-hash">
@@ -207,7 +214,7 @@ form_group.addEventListener("submit", (e) => {
                                 </div><br><br>
                             `)
 
-                            document.body.appendChild(form)
+                            document.querySelector('.response').appendChild(form)
 
                             //cerrar formulario
                             const closeForm = document.getElementById('x-circle-form')
@@ -216,86 +223,122 @@ form_group.addEventListener("submit", (e) => {
                             })
 
                             document.getElementById('x-circle-form').addEventListener("mouseover", () => {
-                                document.getElementById('x-circle-form').setAttribute("src", "/icons/x-circle-fill.svg")
+                                document.getElementById('x-circle-form').setAttribute("src", "../view/icons/x-circle-fill.svg")
                             })
 
                             document.getElementById('x-circle-form').addEventListener("mouseout", () => {
-                                document.getElementById('x-circle-form').setAttribute("src", "/icons/x-circle-fill.svg")
+                                document.getElementById('x-circle-form').setAttribute("src", "../view/icons/x-circle-fill.svg")
                             })
+                        })
 
+                        //cerrar tarea
+                        const closeTask = document.getElementById('x-circle-add');
+                        closeTask.addEventListener('click', () => {
+                            document.getElementById('show-task').remove();
+                        })
 
-                            //cerrar tarea
-                            const closeTask = document.getElementById('x-circle-form')
-                            closeTask.addEventListener('click', () => {
-                                document.getElementById('show-task').remove()
-                            }) 
+                        document.getElementById('x-circle-add').addEventListener("mouseover", () => {
+                            document.getElementById('x-circle-add').setAttribute("src", "../view/icons/x-circle-fill.svg")
+                        })
+
+                        document.getElementById('x-circle-add').addEventListener("mouseout", () => {
+                            document.getElementById('x-circle-add').setAttribute("src", "../view/icons/x-circle.svg")
                         })
                     })
+                })
 
 
-                    //delete - doble click
-                    document.addEventListener('DOMContentLoaded', () => {
-                        const tareas = document.getElementsByClassName("task")
-                        for(let i = 0; i < tareas.length; i++){
-                            tareas[i].addEventListener("dblclick", () => {
-                                if(confirm('¿Desea eliminar la tarea?') === true){
-                                    tareas[i].remove()
-                                }else{
-                                    return
-                                }
-                            })
+                //delete - doble click
+                document.addEventListener('DOMContentLoaded', () => {
+                    const tareas = document.getElementsByClassName("task")
+                    for(let i = 0; i < tareas.length; i++){
+                        tareas[i].addEventListener("dblclick", () => {
+                            if(confirm('¿Desea eliminar la tarea?') === true){
+                                tareas[i].remove()
+                            }else{
+                                return
+                            }
+                        })
+                    }
+                })
+
+                const draggables = document.querySelectorAll(".task")
+                const droppables = document.querySelectorAll(".wrapper-lane")
+                
+                draggables.forEach((task) => {
+                    task.addEventListener("dragstart", () => {
+                        task.classList.add("id-dragging")
+                        
+                        //actualizar numero de tareas
+                        const parrafos = document.querySelectorAll(`#${value}-lane p`)
+                        const dropzone = document.getElementById(`amount-${value}`)
+                        dropzone.innerText = parrafos.length 
+                    })
+
+                    task.addEventListener("dragend", () => {
+                        task.classList.remove("is-dragging");
+
+                        //actualizar numero de tareas
+                        const parrafos = document.querySelectorAll(`#${value}-lane p`)
+                        const dropzone = document.getElementById(`amount-${value}`)
+                        dropzone.innerText = parrafos.length 
+                    })
+                })
+
+                droppables.forEach((zone) => {
+                    zone.addEventListener("dragover", (e) => {
+                        e.preventDefault()
+
+                        const bottomTask = insertAboveTask(zone, e.clientY)
+                        const curTask = document.querySelector(".is-dragging")
+
+                        if(!bottomTask){
+                            zone.appendChild(curTask)
+                        }else{
+                            zone.appendChild(curTask, bottomTask)
+                        }
+
+                        //actualizar numero de tareas
+                        switch(zone.id){
+                            case "todo-lane":
+                                const parrafosTodo = document.querySelectorAll('#todo-lane p')
+                                const dropzoneTodo = document.getElementById("amount-todo");
+                                dropzoneTodo.innerText = parrafosTodo.length;
+                            break;
+                                case "doing-lane":
+                                const parrafosDoing = document.querySelectorAll('#doing-lane p')
+                                const dropzoneDoing = document.getElementById("amount-doing");
+                                dropzoneDoing.innerText = parrafosDoing.length;
+                            break;
+                            default:
+                                const parrafosDone = document.querySelectorAll('#done-lane p')
+                                const dropzoneDone = document.getElementById("amount-done");
+                                dropzoneDone.innerText = parrafosDone.length;
+                            break;
+                        }
+                    })
+                })
+
+                const insertAboveTask = (zone, mouseY) => {
+                    const els = zone.querySelectorAll(".task:not(.is-dragging)")
+                    let closestTask = null
+
+                    let closestOffset = Number.NEGATIVE_INFINITY
+
+                    els.forEach((task) => {
+                        const { top } = task.getBoundingClientRect()
+
+                        const offset = mouseY - top
+
+                        if(offset < 0 && offset > closestOffset){
+                            closestOffset = offset
+                            closestTask = task
                         }
                     })
 
-                    const draggables = document.querySelectorAll(".task")
-                    const droppables = document.querySelectorAll(".wrapper-lane")
-                    
-                    draggables.forEach((task) => {
-                        task.addEventListener("dragstart", () => {
-                            task.classList.add("id-dragging")
-                            
-                            //actualizar numero de tareas
-                            const parrafos = document.querySelectorAll(`${value}-lane p`)
-                            const dropzone = document.getElementById(`amount-${value}`)
-                            dropzone.innerText = parrafos.length
-                        })
-                    })
+                    return closestTask
 
-                    droppables.forEach((zone) => {
-                        zone.addEventListener("dragover", (e) => {
-                            e.preventDefault()
-
-                            const bottomTask = insertAboveTask(zone, e.clientY)
-                            const curTask = document.querySelector(".is-dragging")
-
-                            if(!bottomTask){
-                                zone.appendChild(curTask)
-                            }else{
-                                zone.appendChild(curTask, bottomTask)
-                            }
-                        })
-                    })
-
-                    const insertAboveTask = (zone, mouseY) => {
-                        const els = zone.querySelectorAll(".task:not(.is-dragging)")
-
-                        let closestTask = null
-                        let closestOffset = Number.NEGATIVE_INFINITY
-
-                        els.forEach((task) => {
-                            const { top } = task.getBoundingClientRect()
-
-                            const offset = mouseY - top
-
-                            if(offset < 0 && offset > closestOffset){
-                                closestOffset = offset
-                                closestTask = task
-                            }
-                        })  
-
-                        return closestTask
-                    }
-                })
+                }
             }
         })   
 })

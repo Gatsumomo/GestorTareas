@@ -67,6 +67,7 @@ submitTodoLane.addEventListener("click", (event) => {
   addTodoLane.style.display = "block";
   dividorTodo.style.display = "none";
 
+  //amount-todo -> cantidad de tareas
   const parrafosTodo = document.querySelectorAll('#todo-lane p')
   const dropzoneTodo = document.getElementById("amount-todo");
   dropzoneTodo.innerText = parrafosTodo.length;
@@ -93,10 +94,9 @@ submitTodoLane.addEventListener("click", (event) => {
             
           var form = range.createContextualFragment(`
               <div class="row content show-task" id="show-task">
-              <hr>
                   <div class="col-6">
                       <div class="board-task">
-                      <img src="/icons/x-circle.svg" class="x-circle-add" id="x-circle-add">
+                      <img src="../view/icons/x-circle.svg" class="x-circle-add" id="x-circle-add">
                           <div class="heading">
                               <h3>${clickable.innerHTML}</h3>
                               <h6>${clickable.id}</h6>
@@ -124,7 +124,7 @@ submitTodoLane.addEventListener("click", (event) => {
               document.getElementById('show-task').remove();
           }
 
-      document.body.appendChild(form);
+      document.querySelector('.response').appendChild(form);
 
       //delete task
       var deleteTask = document.querySelectorAll('#delete-task')
@@ -152,7 +152,7 @@ submitTodoLane.addEventListener("click", (event) => {
                   <!--agregar atributos para las tareas-->
                   <div class="col">
                       <form action="http://127.0.0.1:5500/test/sirve.html" method="post" class="form-wrapper" id="form-wrapper">
-                          <img src="/icons/x-circle.svg" class="x-circle-form" id="x-circle-form">
+                          <img src="../view/icons/x-circle.svg" class="x-circle-form" id="x-circle-form">
                           
                           <label for="task-name" class="form-label">Nombre:</label><input type="text" class="form-control" id="task-name" name="task-name">
                           <label for="task-description" class="form-label">Descripción:</label><input type="text" class="form-control" id="task-description" name="task-description">
@@ -180,7 +180,7 @@ submitTodoLane.addEventListener("click", (event) => {
               </div>
           </div><br><br>
           `)
-              document.body.appendChild(form);
+              document.querySelector('.response').appendChild(form);
               
               //cerrar formulario
               const closeForm = document.getElementById('x-circle-form');
@@ -189,11 +189,11 @@ submitTodoLane.addEventListener("click", (event) => {
               })
 
               document.getElementById('x-circle-form').addEventListener("mouseover", () => {
-                  document.getElementById('x-circle-form').setAttribute("src", "/icons/x-circle-fill.svg")
+                  document.getElementById('x-circle-form').setAttribute("src", "../view/icons/x-circle-fill.svg")
               })
 
               document.getElementById('x-circle-form').addEventListener("mouseout", () => {
-                  document.getElementById('x-circle-form').setAttribute("src", "/icons/x-circle.svg")
+                  document.getElementById('x-circle-form').setAttribute("src", "../view/icons/x-circle.svg")
               })
           })
 
@@ -204,14 +204,24 @@ submitTodoLane.addEventListener("click", (event) => {
           })
 
           document.getElementById('x-circle-add').addEventListener("mouseover", () => {
-              document.getElementById('x-circle-add').setAttribute("src", "/icons/x-circle-fill.svg")
+              document.getElementById('x-circle-add').setAttribute("src", "../view/icons/x-circle-fill.svg")
           })
 
           document.getElementById('x-circle-add').addEventListener("mouseout", () => {
-              document.getElementById('x-circle-add').setAttribute("src", "/icons/x-circle.svg")
+              document.getElementById('x-circle-add').setAttribute("src", "../view/icons/x-circle.svg")
           })
       })
   })
+
+
+
+
+
+
+
+
+
+
 
   //delete
   document.addEventListener('DOMContentLoaded', () => {

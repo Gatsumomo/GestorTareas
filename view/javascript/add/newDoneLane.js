@@ -24,7 +24,6 @@ addDoneLane.addEventListener("click", (event) => {
   dividorDone.appendChild(newDoneLane);
   dividorDone.appendChild(submitDoneLane);
 
-  console.log(elementDone.parentNode)
   const parentDone = elementDone.parentNode;
   parentDone.appendChild(dividorDone);
 
@@ -33,8 +32,8 @@ addDoneLane.addEventListener("click", (event) => {
 
 submitDoneLane.addEventListener("click", (event) => {
   event.preventDefault();
-  
   const value = newDoneLane.value;
+
   //vacio - 2 caracteres
   if(value == "" || value.length < 2){
     const message = document.createElement("p")
@@ -67,14 +66,10 @@ submitDoneLane.addEventListener("click", (event) => {
     addDoneLane.style.display = "block";
     dividorDone.style.display = "none";
 
-
-    //amount-done
+    //amount-done -> cantidad de tareas
     const parrafosDone = document.querySelectorAll('#done-lane p')
     const dropzoneDone = document.getElementById("amount-done");
     dropzoneDone.innerText = parrafosDone.length;
-
-    newDoneManualTask.setAttribute("id", `done${parrafosDone.length}`)
-
 
     var clickables = document.querySelectorAll('.task')
     //mostrar info task
@@ -95,10 +90,9 @@ submitDoneLane.addEventListener("click", (event) => {
               
             var form = range.createContextualFragment(`
                 <div class="row content show-task" id="show-task">
-                <hr>
                     <div class="col-6">
                         <div class="board-task">
-                        <img src="/icons/x-circle.svg" class="x-circle-add" id="x-circle-add">
+                        <img src="../view/icons/x-circle.svg" class="x-circle-add" id="x-circle-add">
                             <div class="heading">
                                 <h3>${clickable.innerHTML}</h3>
                                 <h6>${clickable.id}</h6>
@@ -125,17 +119,18 @@ submitDoneLane.addEventListener("click", (event) => {
                 document.getElementById('show-task').remove();
             }
 
-            document.body.appendChild(form);
+            document.querySelector('.response').appendChild(form);
 
             //borrar task
             var deleteTask = document.querySelectorAll('#delete-task')
             deleteTask.forEach((taskButton) => {
               taskButton.addEventListener('click', () => {
-                  document.getElementById(clickable.id).remove();
-                  document.getElementById('show-task').remove();
-                  const parrafosDone = document.querySelectorAll('#done-lane p')
-                  const dropzoneDone = document.getElementById("amount-done");
-                  dropzoneDone.innerText = parrafosDone.length;
+                document.getElementById(clickable.id).remove();
+                document.getElementById('show-task').remove();
+                
+                const parrafosDone = document.querySelectorAll('#done-lane p')
+                const dropzoneDone = document.getElementById("amount-done");
+                dropzoneDone.innerText = parrafosDone.length;
               })
             })
 
@@ -152,7 +147,7 @@ submitDoneLane.addEventListener("click", (event) => {
                         <!--agregar atributos para las tareas-->
                         <div class="col">
                             <form action="http://127.0.0.1:5500/test/sirve.html" method="post" class="form-wrapper" id="form-wrapper">
-                                <img src="/icons/x-circle.svg" class="x-circle-form" id="x-circle-form">
+                                <img src="../view/icons/x-circle.svg" class="x-circle-form" id="x-circle-form">
                                 
                                 <label for="task-name" class="form-label">Nombre:</label><input type="text" class="form-control" id="task-name" name="task-name">
                                 <label for="task-description" class="form-label">Descripción:</label><input type="text" class="form-control" id="task-description" name="task-description">
@@ -181,7 +176,7 @@ submitDoneLane.addEventListener("click", (event) => {
                 </div><br><br>
               `)
 
-              document.body.appendChild(form);
+              document.querySelector('.response').appendChild(form);
               
               //cerrar formulario
               const closeForm = document.getElementById('x-circle-form');
@@ -190,29 +185,39 @@ submitDoneLane.addEventListener("click", (event) => {
               })
 
               document.getElementById('x-circle-form').addEventListener("mouseover", () => {
-                  document.getElementById('x-circle-form').setAttribute("src", "/icons/x-circle-fill.svg")
+                  document.getElementById('x-circle-form').setAttribute("src", "../view/icons/x-circle-fill.svg")
               })
 
               document.getElementById('x-circle-form').addEventListener("mouseout", () => {
-                  document.getElementById('x-circle-form').setAttribute("src", "/icons/x-circle.svg")
+                  document.getElementById('x-circle-form').setAttribute("src", "../view/icons/x-circle.svg")
               })
           })
 
-          //cerrar tarea
-          const closeTask = document.getElementById('x-circle-add');
-          closeTask.addEventListener('click', () => {
-              document.getElementById('show-task').remove();
-          })
+            //cerrar tarea
+            const closeTask = document.getElementById('x-circle-add');
+            closeTask.addEventListener('click', () => {
+                document.getElementById('show-task').remove();
+            })
 
-          document.getElementById('x-circle-add').addEventListener("mouseover", () => {
-              document.getElementById('x-circle-add').setAttribute("src", "/icons/x-circle-fill.svg")
-          })
+            document.getElementById('x-circle-add').addEventListener("mouseover", () => {
+                document.getElementById('x-circle-add').setAttribute("src", "../view/icons/x-circle-fill.svg")
+            })
 
-          document.getElementById('x-circle-add').addEventListener("mouseout", () => {
-          document.getElementById('x-circle-add').setAttribute("src", "/icons/x-circle.svg")
+            document.getElementById('x-circle-add').addEventListener("mouseout", () => {
+            document.getElementById('x-circle-add').setAttribute("src", "../view/icons/x-circle.svg")
         })
     })
-    })
+  })
+
+
+
+
+
+
+
+
+
+
 
   //delete
   document.addEventListener('DOMContentLoaded', () => {
