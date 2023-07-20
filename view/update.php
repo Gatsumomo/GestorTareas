@@ -69,10 +69,10 @@ $user = new User($conection);
 <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
 <script> 
   $(function(){
-    $("#footer").load("Footer.html"); 
+    $("#footer").load("../view/templates/footer.html"); 
   });
   $(function(){
-    $("#header").load("Header.html"); 
+    $("#header").load("../view/templates/header.html"); 
   });
   </script>
   <script>

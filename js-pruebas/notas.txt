@@ -1,0 +1,240 @@
+--bs-breakpoint-xs: 0;
+--bs-breakpoint-sm: 576px;
+--bs-breakpoint-md: 768px;
+--bs-breakpoint-lg: 992px;
+--bs-breakpoint-xl: 1200px;
+--bs-breakpoint-xxl: 1400px;
+
+
+
+const drag = document.getElementById('task');
+const drop = document.getElementById('drop');
+
+function dragStart(event) { 
+    event.dataTransfer.setData("text/plain", event.target.id); //establece los datos que se trasnferiran durante la operacion de arrastre
+    //se esta almacenando el id del elemento que se esta arrastrando en el objeto de transferencia de datos (dataTransfer) con el formato text/plain
+}
+//evento dragstart se activa y llama a la funcion dragStart
+
+function dragOver(event) {
+    event.preventDefault();
+}
+
+function dropHandler(event) {
+    event.preventDefault();
+    const data = event.dataTransfer.getData("text/plain");
+    const draggedElement = document.getElementById(data);
+    console.log(data); 
+
+    event.target.appendChild(draggedElement);
+
+    //event.target.appendChild(document.getElementById(data));
+
+    //draggedElement.style.display = "block";
+    draggedElement.style.display = 'none';
+    data.style.transform = scaleX(1.5);
+    /*draggedElement.style.opacity = '0'*/
+}
+
+drag.addEventListener("dragstart", dragStart);
+drop.addEventListener("dragover", dragOver);
+drop.addEventListener("drop", dropHandler);
+
+
+
+
+
+
+
+
+//prueba 3
+
+window.onload = function(){
+    document.addEventListener("dragstart", function(event){
+        event.dataTransfer.setData("text/plain", event.target.id);
+    });
+
+    document.addEventListener("dragover", function(event){
+        event.preventDefault();
+    });
+
+    document.addEventListener("dragend", function(event){
+        event.preventDefault();
+        const data = event.dataTransfer.getData("text/plain");
+        const draggedElement = document.getElementById(data);
+        console.log(data)
+        event.target.appendChild(draggedElement);
+
+        draggedElement.style.display = 'none';
+        data.style.transform = scaleX(1.5);
+    });
+}
+
+//prueba perdida
+            const drag = document.getElementById('task');
+            const drop = document.getElementById('drop');
+
+            function dragStart(event) { 
+                event.dataTransfer.setData("text/plain", event.target.id); //establece los datos que se trasnferiran durante la operacion de arrastre
+                //se esta almacenando el id del elemento que se esta arrastrando en el objeto de transferencia de datos (dataTransfer) con el formato text/plain
+            }
+
+            //evento dragstart se activa y llama a la funcion dragStart
+
+            function dragOver(event) {
+                event.preventDefault();
+            }
+
+            function dropHandler(event) {
+                event.preventDefault();
+                const data = event.dataTransfer.getData("text/plain");
+                console.log(data);
+            }
+
+            drag.addEventListener("dragstart", dragStart);
+            drop.addEventListener("dragover", dragOver);
+            drop.addEventListener("drop", dropHandler);
+
+
+
+
+
+
+
+
+NodeList(4) [li#list-group-item.list-group-item, li#list-group-item.list-group-item, li#list-group-item.list-group-item, li#list-group-item.list-group-item]
+0
+: 
+li#list-group-item.list-group-item
+1
+: 
+li#list-group-item.list-group-item
+2
+: 
+li#list-group-item.list-group-item
+3
+: 
+li#list-group-item.list-group-item
+length
+: 
+4
+
+
+//PRUEBA FINAL
+function dragStart(event) {
+    event.dataTransfer.setData("text", Event.AT_TARGET); //establece los datos que se trasnferiran durante la operacion de arrastre     
+}
+
+function dragOver(event) {
+    event.preventDefault();
+}
+
+function onDrop(event){
+    event.preventDefault();
+    const id = event.dataTransfer.getData("text");
+    const draggedElement = document.getElementById(id);
+    const dropzone = event.target;
+
+    console.log(id);
+    console.log(draggedElement)
+    
+    dropzone.appendChild(document.getElementById(id));
+    console.log(id); 
+}
+
+
+
+window.addEventListener('DOMContentLoaded', () => {
+    var draggables = document.getElementsByClassName('task');
+
+    function dragStart(event) {
+        for (var i = 0; i < draggables.length; i++) {
+            draggables[i].addEventListener("dragstart", function (event) {
+              event.dataTransfer.setData("text", event.target.id);
+            });
+        }
+    }
+
+    var droppables = document.getElementsByClassName('list-group-item');
+
+    function onDrop(event) {
+        for (var i = 0; i < droppables.length; i++) {
+            droppables[i].addEventListener("dragover", function (event){
+                event.preventDefault();
+                event.target.classList.add("drag-over");
+            });
+    
+            droppables[i].addEventListener("dragleave", function (event) {
+                event.target.classList.remove("drag-over");
+            });
+    
+            droppables[i].addEventListener("drop", function (event) {
+                var id = event.dataTransfer.getData("text");
+                var draggableElement = document.getElementById(id);
+    
+                console.log(id);
+    
+                event.target.appendChild(draggableElement);
+                event.target.classList.remove("drag-over");
+                event.target.classList.add("dropped");
+
+                event.ClearData();
+        
+                setTimeout(function () {
+                    event.target.classList.remove("dropped");
+                }, 1000);
+                });
+        }
+    }
+});
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    var draggables = document.getElementsByClassName('task');
+
+    for (var i = 0; i < draggables.length; i++) {
+        draggables[i].addEventListener("dragstart", function (event) {
+          event.dataTransfer.setData("text", event.target.id);
+        });
+    }
+
+    var droppables = document.getElementsByClassName('list-group-item');
+
+    for (var i = 0; i < droppables.length; i++) {
+        droppables[i].addEventListener("dragover", function (event){
+            event.preventDefault();
+            event.target.classList.add("drag-over");
+        });
+
+        droppables[i].addEventListener("dragleave", function (event) {
+            event.target.classList.remove("drag-over");
+        });
+
+        droppables[i].addEventListener("drop", function (event) {
+            var id = event.dataTransfer.getData("text");
+            var draggableElement = document.getElementById(id);
+
+            console.log(id);
+
+            if (draggableElement.parentElement.id === "list-group-item"){
+                event.target.appendChild(draggableElement);
+
+                event.target.classList.remove("drag-over");
+                event.target.classList.add("dropped");
+                
+                event.dataTransfer.clearData();
+
+                setTimeout(function () {
+                    event.target.classList.remove("dropped");
+                }, 1000);
+            }else{
+                console.log("no se puede")
+            }
+
+        })
+    }    
+})

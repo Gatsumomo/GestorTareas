@@ -68,23 +68,22 @@ submitDoingLane.addEventListener("click", (event) => {
     addDoingLane.style.display = "block";
     dividorDoing.style.display = "none";
 
-    //amount-doing
+    //amount-doing -> cantidad de tareas
     const parrafosDoing = document.querySelectorAll('#doing-lane p')
     const dropzoneDoing = document.getElementById("amount-doing");
     dropzoneDoing.innerText = parrafosDoing.length;
 
-    newDoingManualTask.setAttribute("id", `doing${parrafosDoing.length}`)
+    var clickables = document.querySelectorAll('.task');
 
-  var clickables = document.querySelectorAll('.task');
-  //mostrar info task
-  clickables.forEach((clickable) => {
+    //mostrar info task
+    clickables.forEach((clickable) => {
       clickable.addEventListener('click', () => {
           if(document.getElementById('form-wrapper') != null){
-              if(confirm('se cerrará el formulario, ¿desea continuar?')){
-                  document.getElementById('form-wrapper').remove();
-              }else{
-                  return;
-              }
+            if(confirm('se cerrará el formulario, ¿desea continuar?')){
+                document.getElementById('form-wrapper').remove();
+            }else{
+              return;
+            }
           }
           
           clickables = document.querySelectorAll('.task') 
@@ -94,10 +93,9 @@ submitDoingLane.addEventListener("click", (event) => {
             
           var form = range.createContextualFragment(`
               <div class="row content show-task" id="show-task">
-              <hr>
                   <div class="col-6">
                       <div class="board-task">
-                      <img src="/icons/x-circle.svg" class="x-circle-add" id="x-circle-add">
+                      <img src="../view/icons/x-circle.svg" class="x-circle-add" id="x-circle-add">
                           <div class="heading">
                               <h3>${clickable.innerHTML}</h3>
                               <h6>${clickable.id}</h6>
@@ -125,19 +123,19 @@ submitDoingLane.addEventListener("click", (event) => {
               document.getElementById('show-task').remove();
           }
 
-      document.body.appendChild(form);
+      document.querySelector('.response').appendChild(form);
 
       //borrar tarea
       var deleteTask = document.querySelectorAll('#delete-task')
       deleteTask.forEach((taskButton) => {
-          taskButton.addEventListener('click', () => {
-              document.getElementById(clickable.id).remove();
-              document.getElementById('show-task').remove();
+        taskButton.addEventListener('click', () => {
+          document.getElementById(clickable.id).remove();
+          document.getElementById('show-task').remove();
 
-              const parrafosDoing = document.querySelectorAll('#doing-lane p')
-              const dropzoneDoing = document.getElementById("amount-doing") 
-              dropzoneDoing.innerText = parrafosDoing.length
-          })
+          const parrafosDoing = document.querySelectorAll('#doing-lane p')
+          const dropzoneDoing = document.getElementById("amount-doing") 
+          dropzoneDoing.innerText = parrafosDoing.length
+         })
       })
   
       var editTask = document.getElementById('edit-task')
@@ -153,7 +151,7 @@ submitDoingLane.addEventListener("click", (event) => {
                   <!--agregar atributos para las tareas-->
                   <div class="col">
                       <form action="http://127.0.0.1:5500/test/sirve.html" method="post" class="form-wrapper" id="form-wrapper">
-                          <img src="/icons/x-circle.svg" class="x-circle-form" id="x-circle-form">
+                          <img src="../view/icons/x-circle.svg" class="x-circle-form" id="x-circle-form">
                           
                           <label for="task-name" class="form-label">Nombre:</label><input type="text" class="form-control" id="task-name" name="task-name">
                           <label for="task-description" class="form-label">Descripción:</label><input type="text" class="form-control" id="task-description" name="task-description">
@@ -181,7 +179,7 @@ submitDoingLane.addEventListener("click", (event) => {
               </div>
           </div><br><br>
           `)
-              document.body.appendChild(form);
+              document.querySelector('.response').appendChild(form);
               
               //cerrar formulario
               const closeForm = document.getElementById('x-circle-form');
@@ -190,18 +188,26 @@ submitDoingLane.addEventListener("click", (event) => {
               })
 
               document.getElementById('x-circle-form').addEventListener("mouseover", () => {
-                  document.getElementById('x-circle-form').setAttribute("src", "/icons/x-circle-fill.svg")
+                  document.getElementById('x-circle-form').setAttribute("src", "../view/icons/x-circle-fill.svg")
               })
 
               document.getElementById('x-circle-form').addEventListener("mouseout", () => {
-                  document.getElementById('x-circle-form').setAttribute("src", "/icons/x-circle.svg")
+                  document.getElementById('x-circle-form').setAttribute("src", "../view/icons/x-circle.svg")
               })
           })
 
           //cerrar tarea
           const closeTask = document.getElementById('x-circle-add');
           closeTask.addEventListener('click', () => {
-              document.getElementById('show-task').remove();
+            document.getElementById('show-task').remove();
+          })
+          
+          document.getElementById('x-circle-add').addEventListener("mouseover", () => {
+            document.getElementById('x-circle-add').setAttribute("src", "../view/icons/x-circle-fill.svg")
+          })
+          
+          document.getElementById('x-circle-add').addEventListener("mouseout", () => {
+            document.getElementById('x-circle-add').setAttribute("src", "../view/icons/x-circle.svg")
           })
       })
   })

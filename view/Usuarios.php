@@ -50,10 +50,10 @@ $collection = new User($connection);
     <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
     <script>
         $(function(){
-            $("#header").load("../view/header.html");
+            $("#header").load("../view/templates/header.html");
         });
         $(function(){
-            $("#footer").load("../view/footer.html");
+            $("#footer").load("../view/templates/footer.html");
         });
     </script>
     <div id="footer"></div>
