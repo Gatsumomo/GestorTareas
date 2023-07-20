@@ -1,0 +1,39 @@
+.mask{
+    border-radius: 10px;
+    padding: 0.5rem;
+}
+.content{
+    margin-top: 3rem;
+}
+.card{
+    background-color: rgba(0, 0, 0, 0.068);
+    padding: 2rem;
+    margin: 1rem;
+    border-radius: 15px;
+    border-style: none;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.233);
+    margin-bottom: 3rem;
+}
+.card>h3{
+    background-color: rgba(0, 0, 0, 0.068);
+    padding: 1rem;
+    border-radius: 15px;
+}
+.card>h3:hover{
+    background-color: rgba(0, 0, 0, 0.178);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.158);
+}
+th{
+    text-align: center !important;
+    align-self: flex-end
+}
+.nature{
+    padding-left: 1.1rem;
+}
+p{
+    margin-top: 1rem;
+    margin-left: 0.3rem;
+}
+.index:visited{
+    color: #000000;
+}
